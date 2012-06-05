@@ -1,6 +1,6 @@
 Ext.define("WeightWeight.view.Main", {
     extend: 'Ext.tab.Panel',
-    requires: ['Ext.TitleBar', 'WeightWeight.view.DataEntry', 'WeightWeight.view.Config'],
+    requires: ['Ext.TitleBar'],
     
     config: {
         tabBar: {
@@ -8,6 +8,8 @@ Ext.define("WeightWeight.view.Main", {
         },
         items: [
             { xtype: 'dataentry'},
+            { xtype: 'overview'},
+            { xtype: 'details'},
             { xtype: 'configform' }
         ]
     }

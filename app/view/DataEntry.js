@@ -41,7 +41,8 @@ Ext.define("WeightWeight.view.DataEntry", {
             {
                 xtype:'button',
                 margin:'25 0 25',
-                text:'Add Tag'
+                text:'Add Tag',
+                id: 'addTagButton'
             },
             {
                 xtype:'container',

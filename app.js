@@ -13,7 +13,7 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    views: ['Main', 'Config'],
+    views: ['Main', 'Config', 'AddTag', "OverviewChart", "DetailChart"],
 
     icon: {
         57: 'resources/icons/Icon.png',
