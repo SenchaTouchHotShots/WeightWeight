@@ -13,7 +13,7 @@
      *                                      //  - If not specified, this file will only be loaded once, and
      *                                      //    cached inside localStorage until this value is changed.
      *                                      //  - "delta" to enable over-the-air delta update for this file
-     *                                      //  - "full" means full update will be made when this file changes
+     *                                      //  - "full" means full update will be made when this file changes test
      *
      *      }
      */
