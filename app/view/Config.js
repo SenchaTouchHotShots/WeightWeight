@@ -32,7 +32,6 @@ Ext.define("WeightWeight.view.Config", {
                         id:'exercisePerDay',
                         name:'exercisePerDay',
                         label:'Exercise (minutes)',
-                        defaultValue:30,
                         increment: 1
                     },
                     {
@@ -40,7 +39,6 @@ Ext.define("WeightWeight.view.Config", {
                         id:'caloriesPerDay',
                         name:'caloriesPerDay',
                         label:'Caloric Intake',
-                        defaultValue:0,
                         increment: 100
                     },
                     {
@@ -48,7 +46,6 @@ Ext.define("WeightWeight.view.Config", {
                         id:'waterPerDay',
                         name:'waterPerDay',
                         label:'Water Consumption',
-                        defaultValue:8,
                         increment: 1
                     }
                 ]
@@ -66,8 +63,7 @@ Ext.define("WeightWeight.view.Config", {
                                 xtype:'radiofield',
                                 label:'Pounds',
                                 name:'weightUnits',
-                                value:'lbs',
-                                checked:true
+                                value:'lbs'
                             },
                             {
                                 xtype:'radiofield',
@@ -85,8 +81,7 @@ Ext.define("WeightWeight.view.Config", {
                                 xtype:'radiofield',
                                 label:'Glasses',
                                 name:'waterUnits',
-                                value:'glass',
-                                checked:true
+                                value:'glass'
                             },
                             {
                                 xtype:'radiofield',

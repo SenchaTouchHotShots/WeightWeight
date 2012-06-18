@@ -1,8 +1,6 @@
-/* Placeholder for now. */
 Ext.define('WeightWeight.view.AddTag', {
     extend: 'Ext.ActionSheet',
     alias: 'widget.addtag',
-    //singleton: true,
     config: {
         id: 'addTagSheet',
         items: [
@@ -14,8 +12,12 @@ Ext.define('WeightWeight.view.AddTag', {
             {
                 xtype: 'list',
                 height: 300,
+                store: {
+                    model: 'WeightWeight.model.Tag',
+                    autoLoad: true
+                },
                 itemTpl: [
-                    '<div>List Item {string}</div>'
+                    '<div>{text}</div>'
                 ]
             },
             {

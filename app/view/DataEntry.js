@@ -11,7 +11,8 @@ Ext.define("WeightWeight.view.DataEntry", {
                 label:'Date',
                 name: 'entryDate',
                 id: 'entryDate',
-                placeHolder:'mm/dd/yyyy'
+                placeHolder:'mm/dd/yyyy',
+                value: new Date()
             },
             {
                 xtype:'numberfield',

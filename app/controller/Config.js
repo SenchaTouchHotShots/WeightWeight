@@ -39,11 +39,25 @@ Ext.define('WeightWeight.controller.Config', {
         form.setRecord(this.savedConfig);
         form.on({
            delegate: 'field', // listen to change events from the form's child fields.
-           change: function(field, newValue, oldValue) {
-               this.savedConfig.set(field.getName(), newValue);
-               this.savedConfig.save();
-           },
+           change: this.updateValue,
+            spin: this.updateValue,
             scope: this
         });
+
+            form.on({
+            delegate: 'radiofield',
+            check: function(field) {
+                console.log('Checked:');
+                console.log(arguments);
+                this.updateValue(field, field.getGroupValue());
+            },
+            scope: this
+        });
+    },
+    updateValue: function(field, newValue) {
+        console.log('Setting '+field.getName()+' to '+newValue);
+        this.savedConfig.set(field.getName(), newValue);
+        this.savedConfig.save();
+        console.log(this.savedConfig);
     }
 });

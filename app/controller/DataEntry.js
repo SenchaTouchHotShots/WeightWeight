@@ -3,24 +3,43 @@ Ext.define('WeightWeight.controller.DataEntry', {
 
     config: {
         views: ['DataEntry', 'AddTag'],
+        stores: ['EntryStore'],
         refs: {
-            tagSheet: {
-                selector: '#addTagSheet'
-            }
+            tagSheet: '#addTagSheet',
+            tagList: '#addTagSheet list',
+            tagInput: '#addTagSheet textfield',
+            tagButton: 'button#addTagButton',
+            tagField: '#hiddenTagField',
+            entrySaveButton: 'dataentry button[text="Save"]',
+            entryCancelButton: 'dataentry button[text="Cancel"]',
+            entryForm: 'dataentry'
         },
         control: {
-            'button#addTagButton': {
+            tagButton: {
                 tap: 'showAddTag'
+            },
+            tagInput: {
+              clearicontap: 'deselectTag'
+            },
+            tagList: {
+              select: 'selectTag'
             },
             '#addTagSheet button[text="Cancel"]': {
                 tap: 'cancelAddTag'
             },
             '#addTagSheet button[text="Save"]': {
                 tap: 'saveAddTag'
+            },
+            entrySaveButton: {
+                tap: 'saveEntry'
+            },
+            entryCancelButton: {
+                tap: 'clearEntry'
             }
         }
     },
     showAddTag: function() {
+        console.log('Tap!');
         var sheet = this.getTagSheet();
         if (typeof sheet == 'undefined') {
             sheet = Ext.widget('addtag');
@@ -32,11 +51,42 @@ Ext.define('WeightWeight.controller.DataEntry', {
         this.getTagSheet().hide();
     },
     saveAddTag: function() {
-        //TODO:
-        // 1. Update "Add Tag" button text to be "Tag: "+tagName
-        // 2. Set value of hidden tag field.
-        // 3. Add tag to list of existing tags.
-        // 4. Clear tagSheet values, deselect tag from list.
+        var tag = this.getTagInput().getValue(),
+            store = this.getTagList().getStore();
+        if (tag != "") {
+            this.getTagButton().setText('Tag: '+tag);
+            this.getTagField().setValue(tag);
+            if (store.findExact('text', tag) == -1) {
+                store.add({text: tag});
+                store.sync();
+                console.log('Store:');
+                console.log(store);
+            }
+        } else {
+            this.getTagButton().setText('Add Tag');
+            this.getTagField().setValue('');
+        }
+
         this.getTagSheet().hide();
+    },
+    selectTag: function(list, record) {
+        this.getTagInput().setValue(record.get('text'));
+    },
+    deselectTag: function() {
+        this.getTagList().deselectAll();
+    },
+    saveEntry: function() {
+        var values = this.getEntryForm().getValues(),
+            store = Ext.getStore('EntryStore'),
+            entry = Ext.create('WeightWeight.model.Entry', values);
+
+        store.add(entry);
+
+        store.sync();
+        Ext.Msg.alert('Saved!', 'Your data has been saved.', this.clearEntry, this);
+    },
+    clearEntry: function() {
+        this.getEntryForm().reset();
+        this.getTagButton().setText('Add Tag');
     }
 });
