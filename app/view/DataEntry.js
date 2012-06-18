@@ -9,34 +9,41 @@ Ext.define("WeightWeight.view.DataEntry", {
             {
                 xtype:'datepickerfield',
                 label:'Date',
+                name: 'entryDate',
+                id: 'entryDate',
                 placeHolder:'mm/dd/yyyy'
             },
             {
                 xtype:'numberfield',
                 id:'weightField',
+                name: 'weight',
                 margin:'10 0',
                 label:'Weight'
             },
             {
                 xtype:'numberfield',
                 id:'waterField',
+                name: 'water',
                 margin:'10 0',
                 label:'Water'
             },
             {
                 xtype:'numberfield',
                 id:'calorieField',
+                name: 'calories',
                 margin:'10 0',
                 label:'Calories'
             },
             {
                 xtype:'numberfield',
                 id:'exerciseField',
+                name: 'exercise',
                 label:'Exercise'
             },
             {
                 xtype:'hiddenfield',
-                id:'hiddenTagField'
+                id:'hiddenTagField',
+                name: 'tag'
             },
             {
                 xtype:'button',

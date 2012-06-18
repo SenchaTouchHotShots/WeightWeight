@@ -5,6 +5,8 @@ Ext.Loader.setPath({
 //</debug>
 
 Ext.application({
+    models: ["Tag", "Entry", "Config"],
+
     controllers: ["Chart", "DataEntry", "Config"],
 
     name: 'WeightWeight',

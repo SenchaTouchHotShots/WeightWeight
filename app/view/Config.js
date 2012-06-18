@@ -10,13 +10,15 @@ Ext.define("WeightWeight.view.Config", {
                 title:'Weight Loss Goal',
                 items:[
                     {
-                        xtype:'textfield',
+                        xtype:'numberfield',
                         id:'startingWeight',
+                        name:'startingWeight',
                         label:'Starting Weight'
                     },
                     {
-                        xtype:'textfield',
+                        xtype:'numberfield',
                         id:'targetWeight',
+                        name:'targetWeight',
                         label:'Target Weight'
                     }
                 ]
@@ -28,6 +30,7 @@ Ext.define("WeightWeight.view.Config", {
                     {
                         xtype:'spinnerfield',
                         id:'exercisePerDay',
+                        name:'exercisePerDay',
                         label:'Exercise (minutes)',
                         defaultValue:30,
                         increment: 1
@@ -35,6 +38,7 @@ Ext.define("WeightWeight.view.Config", {
                     {
                         xtype:'spinnerfield',
                         id:'caloriesPerDay',
+                        name:'caloriesPerDay',
                         label:'Caloric Intake',
                         defaultValue:0,
                         increment: 100
@@ -42,6 +46,7 @@ Ext.define("WeightWeight.view.Config", {
                     {
                         xtype:'spinnerfield',
                         id:'waterPerDay',
+                        name:'waterPerDay',
                         label:'Water Consumption',
                         defaultValue:8,
                         increment: 1
