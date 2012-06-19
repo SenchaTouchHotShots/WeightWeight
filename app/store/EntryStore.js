@@ -3,6 +3,7 @@ Ext.define('WeightWeight.store.EntryStore', {
     config: {
    model: 'WeightWeight.model.Entry',
    autoLoad: true,
-    storeId: 'EntryStore'
+    storeId: 'EntryStore',
+        sorters: [{property:'entryDate',direction:'ASC'}]
     }
 });

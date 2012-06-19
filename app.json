@@ -22,6 +22,9 @@
             "path": "sdk/sencha-touch-all.js"
         },
         {
+            "path": "touch-charts/touch-charts-debug.js"
+        },
+        {
             "path": "overrides/Checkbox.js"
         },
         {
@@ -47,6 +50,9 @@
         {
             "path": "resources/css/app.css",
             "update": "delta"
+        },
+        {
+            "path": "touch-charts/resources/css/touch-charts.css"
         }
     ],
 

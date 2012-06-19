@@ -12,10 +12,12 @@ Ext.application({
     name: 'WeightWeight',
 
     requires: [
-        'Ext.MessageBox'
+        'Ext.MessageBox',
+        'Ext.chart.*',
+        'Ext.DateExtras'
     ],
 
-    views: ['Main', 'Config', 'AddTag', "OverviewChart", "DetailChart"],
+    views: ['Main', 'Config', 'AddTag', "OverviewChart", "DetailChart", "wordChart", "goalChart"],
 
     stores: ['EntryStore'],
 

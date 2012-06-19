@@ -39,7 +39,6 @@ Ext.define('WeightWeight.controller.DataEntry', {
         }
     },
     showAddTag: function() {
-        console.log('Tap!');
         var sheet = this.getTagSheet();
         if (typeof sheet == 'undefined') {
             sheet = Ext.widget('addtag');
@@ -59,8 +58,6 @@ Ext.define('WeightWeight.controller.DataEntry', {
             if (store.findExact('text', tag) == -1) {
                 store.add({text: tag});
                 store.sync();
-                console.log('Store:');
-                console.log(store);
             }
         } else {
             this.getTagButton().setText('Add Tag');
