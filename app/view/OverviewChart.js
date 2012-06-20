@@ -15,12 +15,6 @@ Ext.define("WeightWeight.view.OverviewChart", {
             },
             interactions:[
                 {
-                    type:'panzoom',
-                    axes:{
-                        left:{}
-                    }
-                },
-                {
                     type:'iteminfo',
                     panel:{
                         tpl:[ '<table>',

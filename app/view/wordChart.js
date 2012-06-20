@@ -30,7 +30,7 @@ Ext.define('WeightWeight.view.wordChart', {
         this.store.setGroupDir('ASC');
         var groups = this.store.getGroups();
         this.store.setGroupField('');
-
+        this.store.clearFilter();
         var wordStore = Ext.create('Ext.data.Store',
             { fields: ['name', {name: 'count', type: 'int'}]}
         );
