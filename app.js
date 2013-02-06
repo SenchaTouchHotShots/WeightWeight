@@ -1,6 +1,7 @@
 //<debug>
 Ext.Loader.setPath({
-    'Ext': 'sdk/src'
+    'Ext': 'touch/src',
+    'WeightWeight': 'app'
 });
 //</debug>
 
@@ -43,8 +44,10 @@ Ext.application({
         Ext.Msg.confirm(
             "Application Update",
             "This application has just successfully been updated to the latest version. Reload now?",
-            function() {
-                window.location.reload();
+            function(buttonId) {
+                if (buttonId === 'yes') {
+                    window.location.reload();
+                }
             }
         );
     }
