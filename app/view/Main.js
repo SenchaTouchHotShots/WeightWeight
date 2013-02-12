@@ -1,15 +1,17 @@
-Ext.define("WeightWeight.view.Main", {
+Ext.define('WeightWeight.view.Main', {
     extend: 'Ext.tab.Panel',
-    requires: ['Ext.TitleBar'],
-    
+    xtype: 'main',
+    requires: [
+        'Ext.TitleBar',
+        'Ext.Video'
+    ],
     config: {
-        tabBar: {
-            docked: 'bottom'
-        },
+        tabBarPosition: 'bottom',
+
         items: [
-            { xtype: 'dataentry'},
-            { xtype: 'overview'},
-            { xtype: 'details'},
+            { xtype: 'dataentry' },
+            { xtype: 'overview' },
+            { xtype: 'details' },
             { xtype: 'configform' }
         ]
     }

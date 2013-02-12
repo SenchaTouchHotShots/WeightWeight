@@ -32,7 +32,7 @@
  *
  * [getting_started]: #!/guide/getting_started
  */
-Ext.setVersion('touch', '2.1.0');
+Ext.setVersion('touch', '2.1.1');
 
 Ext.apply(Ext, {
     /**
@@ -290,6 +290,11 @@ Ext.apply(Ext, {
             elementSize: {
                 xclass: 'Ext.event.publisher.ElementSize'
             }
+            //<feature charts>
+            ,seriesItemEvents: {
+                xclass: 'Ext.chart.series.ItemPublisher'
+            }
+            //</feature>
         },
 
         //<feature logger>

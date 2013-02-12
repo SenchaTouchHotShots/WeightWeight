@@ -1,6 +1,14 @@
 Ext.define('WeightWeight.view.wordChart', {
     extend:'Ext.Panel',
     alias:'widget.wordchart',
+    requires: ['Ext.chart.PolarChart',
+               'Ext.Toolbar',
+               'Ext.TitleBar',
+               'Ext.chart.series.Radar',
+               'Ext.chart.axis.Numeric',
+               'Ext.chart.axis.Category',
+               'Ext.chart.interactions.Rotate',
+               'Ext.Button'],
     config: {
         layout: 'fit'
     },
@@ -40,34 +48,35 @@ Ext.define('WeightWeight.view.wordChart', {
 
 
         this.chart = Ext.factory({
-            xtype: 'chart',
+            xtype: 'polar',
             store: wordStore,
-            animate: {
-                easing: "backInOut",
-                duration: 500
-            },
+            interactions: 'rotate',
             series: [{
-                type: 'wordmap',
-                wordField: 'name',
-                wordCountField: 'count',
-                minFontSize: 25,
-                maxFontSize: 60,
-                minColor: 'rgb(0,0,0)',
-                maxColor: '#a61187',
-                fontFamily: 'Helvetica',
-                positionFn: function(bounds){
-                    var width = bounds.width,
-                        height = bounds.height,
-                        rnd = Math.random,
-                        x, y;
-                    x = (width/2) + (((rnd() * 10 > 5) ? 1 : -1) * rnd() * 100 + 1) >> 0;
-                    y = (height/2) + (((rnd() * 10 > 5) ? 1 : -1) * rnd() * 100 + 1) >> 0;
-
-                    return {
-                        x: x,
-                        y: y
-                    };
+                type: 'radar',
+                xField: 'name',
+                yField: 'count',
+                style: {
+                            fillStyle: 'rgba(0,255,0,0.2)',
+                            strokeStyle: 'rgba(0,0,0,0.8)',
+                            lineWidth: 1
                 }
+            }],
+            axes: [{
+                type: 'numeric',
+                 position: 'radial',
+                 fields: 'count',
+                 grid: true,
+                 label: {
+                     fill: 'black'
+                 }
+             },{
+                 type: 'category',
+                 position: 'angular',
+                 fields: 'name',
+                 grid: true,
+                 label: {
+                     fill: 'black'
+                 }
             }]
         }, 'Ext.chart.Chart');
 

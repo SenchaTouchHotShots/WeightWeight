@@ -1,20 +1,44 @@
 Ext.define("WeightWeight.view.OverviewChart", {
-    extend:'Ext.chart.Panel',
+    extend:'Ext.Panel',
     alias:'widget.overview',
-    stores:['EntryStore'],
-    config:{
+    requires: [
+        'Ext.chart.Chart',
+        'Ext.chart.series.Line',
+        'Ext.chart.axis.Numeric',
+        'Ext.chart.axis.Time',
+        'Ext.draw.modifier.Highlight',
+        'Ext.chart.interactions.ItemHighlight'
+    ],
+    config: {
         title:'Overview',
         //TODO - come up with a good iconCls.
         iconCls:'star',
-        chart:{
-            themeCls:'line1',
-            store:'EntryStore',
-            animate:true,
-            legend:{
-                position:'right'
+        layout: 'fit',
+        items: [            
+            {
+                xtype: 'toolbar',
+                top: 0,
+                right: 0,
+                zIndex: 50,
+                style: {
+                    background: 'none'
+                },
+                items: [
+                    {
+                        xtype: 'spacer'
+                    }
+                ]
             },
-            interactions:[
-                {
+            {
+                xtype: 'chart',
+                margin: '50 0 25 0',
+                store: 'EntryStore',
+                interactions: [
+                    {
+                        type: 'panzoom',
+                        zoomOnPanGesture: false
+                    },
+                    {
                     type:'iteminfo',
                     panel:{
                         tpl:[ '<table>',
@@ -28,7 +52,7 @@ Ext.define("WeightWeight.view.OverviewChart", {
                     },
                     listeners:{
                         show:function (interaction, item, panel) {
-                            var record = item.storeItem;
+                            var record = item.record;
                             var dt = new Date(record.get('entryDate'));
                             var config = Ext.ModelManager.getModel('WeightWeight.model.Config');
                             config.load(1, {
@@ -42,61 +66,87 @@ Ext.define("WeightWeight.view.OverviewChart", {
                         }
                     }
                 }
-            ],
-            axes:[
-                {
-                    type:'Numeric',
-                    position:'left',
-                    fields:['weight'],
-                    title:'Weight',
-                    minorTickSteps:25,
-                    roundToDecimal:true,
-                    decimals:1
+                ],
+                legend: {
+                    position: 'bottom'
                 },
-                {
-                    type:'Numeric',
-                    position:'right',
-                    fields:['exercise'],
-                    title:'Exercise (min/day)',
-                    decimals:0,
-                    minimum:0
-                },
-                {
-                    type:'Time',
-                    position:'bottom',
-                    fields:['entryDate'],
-                    title:'Date',
-                    dateFormat:'m-d-Y'
-                }
-            ],
-            series:[
-                {
-                    type:'line',
-                    highlight:{
-                        size:7,
-                        radius:7
+                series: [
+                    {
+                        type: 'line',
+                        xField: 'entryDate',
+                        yField: 'weight',
+                        title: 'Weight',
+                        axis: 'left',
+                        style: {
+                            smooth: false,
+                            stroke: '#76AD86',
+                            miterLimit: 3,
+                            lineCap: 'miter',
+                            lineWidth: 3
+                        },
+                        marker: {
+                            type: 'circle',
+                            r: 6,
+                            fillStyle: '#76AD86'
+                        },
+                        highlightCfg: {
+                            scale: 1.25
+                        }
                     },
-                    fill:false,
-                    smooth:true,
-                    axis:'left',
-                    xField:'entryDate',
-                    yField:'weight',
-                    title:'Weight'
+                                        {
+                        type: 'line',
+                        xField: 'entryDate',
+                        yField: 'exercise',
+                        title: 'Exercise',
+                        axis: 'right',
+                        style: {
+                            smooth: false,
+                            stroke: '#7681AD',
+                            lineWidth: 3
+                        },
+                        marker: {
+                            type: 'circle',
+                            r: 6,
+                            fillStyle: '#7681AD'
+                        },
+                        highlightCfg: {
+                            scale: 1.25
+                        }
+                    }
+
+                ],
+                axes: [{
+                    type: 'numeric',
+                    position: 'left',
+                    fields: ['weight'],
+                    minimum: 0
                 },
-                {
-                    type:'line',
-                    highlight:{
-                        size:7,
-                        radius:7
-                    },
-                    fill:false,
-                    smooth:true,
-                    axis:'right',
-                    xField:'entryDate',
-                    yField:'exercise',
-                    title:'Exercise'
-                }
-            ]
+                       {
+                    type: 'numeric',
+                    position: 'right',
+                    fields: ['exercise'],
+                    minimum: 0
+                },
+                       {
+                           type: 'time',
+                           dateFormat: 'm-d-Y',
+                           position: 'bottom',
+                           fields: 'entryDate',
+                           title: {
+                               text: 'Date',
+                               fontSize: 20
+                           }
+                       }
+                ]
+            }
+        ]
+    },
+    initialize: function () {
+        this.callParent();
+        var toolbar = Ext.ComponentQuery.query('toolbar', this)[0],
+            interaction = Ext.ComponentQuery.query('interaction', this)[0];
+        if (toolbar && interaction && !interaction.isMultiTouch()) {
+            toolbar.add(interaction.getModeToggleButton());
         }
     }
 });

@@ -32,21 +32,21 @@ Ext.define("WeightWeight.view.Config", {
                         id:'exercisePerDay',
                         name:'exercisePerDay',
                         label:'Exercise (minutes)',
-                        increment: 1
+                        stepValue: 1
                     },
                     {
                         xtype:'spinnerfield',
                         id:'caloriesPerDay',
                         name:'caloriesPerDay',
                         label:'Caloric Intake',
-                        increment: 100
+                        stepValue: 100
                     },
                     {
                         xtype:'spinnerfield',
                         id:'waterPerDay',
                         name:'waterPerDay',
                         label:'Water Consumption',
-                        increment: 1
+                        stepValue: 1
                     }
                 ]
             },

@@ -1,6 +1,14 @@
 Ext.define('WeightWeight.view.goalChart', {
    extend:'Ext.Panel',
     alias:'widget.goalchart',
+    requires: [
+        'Ext.chart.Chart',
+        'Ext.chart.series.Line',
+        'Ext.chart.axis.Numeric',
+        'Ext.chart.axis.Category',
+        'Ext.chart.interactions.PanZoom',
+        'Ext.chart.series.Bar'
+    ],
     config: {
       layout: 'fit'
     },
@@ -20,54 +28,68 @@ Ext.define('WeightWeight.view.goalChart', {
     createChart: function(config) {
         this.configRecord = config;
         var goalStore = Ext.create('Ext.data.Store',
-            { fields: ['entryDate', {name: this.dataField, type: 'auto'}, {name: 'goal', type: 'int'}]}
+            { fields: [{name: 'entryDate', type: 'string'}, {name: Ext.String.capitalize(this.dataField), type: 'int'}, {name: 'goal', type: 'int'}]}
         );
         this.store.each(function(record) {
             if (record.get(this.dataField)) {
-            var values = {
-                entryDate: record.get('entryDate'),
-                goal: this.configRecord.get(this.goalField)
-            };
-            values[this.dataField] = record.get(this.dataField);
-           goalStore.add(values);
+                var dt = new Date(record.get('entryDate')); // not getting a date object from record.get
+                //We have to convert the dates to strings because bar/column charts don't work with time axes, only with category axes.
+                var values = {
+                    entryDate: Ext.Date.format(dt,'m-d-Y'),
+                    goal: this.configRecord.get(this.goalField)
+                };
+                values[Ext.String.capitalize(this.dataField)] = record.get(this.dataField);
+                goalStore.add(values);
             }
         }, this);
+
         this.chart = Ext.factory({
             xtype: 'chart',
             store: goalStore,
             animate: true,
-            colors: this.colorSet,
+             interactions: [
+                 'itemhighlight'
+             ],
             legend: {
                 position: 'right'
             },
             axes: [{
-                type:'Numeric',
+                type:'numeric',
                 position:'left',
-                fields:[this.dataField, 'goal'],
-                title:this.chartTitle,
-                decimals:0,
-                minimum:0
+                fields:[Ext.String.capitalize(this.dataField), 'goal'],
+                title:Ext.String.capitalize(this.dataField)
             },
                 {
-                    type:'Time',
+                    type:'category',
                     position:'bottom',
                     fields:['entryDate'],
                     title:'Date',
-                    dateFormat:'m-d-Y'
+                    label: {
+                        fontSize: 10
+                    }
                 }],
             series: [
+                
                 {
-                    type: 'column',
-                    axis: 'left',
-                    title: this.chartTitle,
-                    highlight: true,
+                    type: 'bar',
                     xField: 'entryDate',
-                    yField: this.dataField
+                    yField: [Ext.String.capitalize(this.dataField)],
+                    style: {
+                        fill: this.colorSet[0],
+                        shadowColor: 'rgba(0,0,0,0.3)',
+                        maxBarWidth: 50,
+                        minGapWidth: 3,
+                        shadowOffsetX: 3,
+                        shadowOffsetY: 3
+                    }
                 },
                 {
                     type:'line',
-                    fill:false,
-                    smooth:true,
+                    style: {
+                        smooth: false,
+                        stroke: this.colorSet[1],
+                        lineWidth: 3
+                    },
                     axis:'left',
                     xField:'entryDate',
                     yField:'goal',
@@ -76,7 +98,6 @@ Ext.define('WeightWeight.view.goalChart', {
                 }
             ]
         }, 'Ext.chart.Chart');
-
         this.add(this.chart);
 
     }
