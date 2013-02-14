@@ -1,14 +1,6 @@
 Ext.define('WeightWeight.view.goalChart', {
    extend:'Ext.Panel',
     alias:'widget.goalchart',
-    requires: [
-        'Ext.chart.Chart',
-        'Ext.chart.series.Line',
-        'Ext.chart.axis.Numeric',
-        'Ext.chart.axis.Category',
-        'Ext.chart.interactions.PanZoom',
-        'Ext.chart.series.Bar'
-    ],
     config: {
       layout: 'fit'
     },

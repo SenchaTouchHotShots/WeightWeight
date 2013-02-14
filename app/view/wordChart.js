@@ -1,14 +1,6 @@
 Ext.define('WeightWeight.view.wordChart', {
     extend:'Ext.Panel',
     alias:'widget.wordchart',
-    requires: ['Ext.chart.PolarChart',
-               'Ext.Toolbar',
-               'Ext.TitleBar',
-               'Ext.chart.series.Radar',
-               'Ext.chart.axis.Numeric',
-               'Ext.chart.axis.Category',
-               'Ext.chart.interactions.Rotate',
-               'Ext.Button'],
     config: {
         layout: 'fit'
     },
@@ -40,7 +32,7 @@ Ext.define('WeightWeight.view.wordChart', {
         this.store.setGroupField('');
         this.store.clearFilter();
         var wordStore = Ext.create('Ext.data.Store',
-            { fields: ['name', {name: 'count', type: 'int'}]}
+            { fields: [{name: 'name'}, {name: 'count', type: 'int'}]}
         );
         Ext.each(groups, function(group) {
            wordStore.add({name: group.name, count: group.children.length});
@@ -51,11 +43,18 @@ Ext.define('WeightWeight.view.wordChart', {
             xtype: 'polar',
             store: wordStore,
             interactions: 'rotate',
+            innerPadding: 15,
             series: [{
                 type: 'radar',
                 xField: 'name',
                 yField: 'count',
-                style: {
+                labelField: 'name',
+                marker:{
+                    type:'circle',
+                    r:3,
+                    fillStyle:'#76AD86'
+                },
+                    style: {
                             fillStyle: 'rgba(0,255,0,0.2)',
                             strokeStyle: 'rgba(0,0,0,0.8)',
                             lineWidth: 1
@@ -76,7 +75,10 @@ Ext.define('WeightWeight.view.wordChart', {
                  grid: true,
                  label: {
                      fill: 'black'
-                 }
+                 },
+                style: {
+                    estStepSize: 1
+                }
             }]
         }, 'Ext.chart.Chart');
 
